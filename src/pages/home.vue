@@ -30,7 +30,6 @@ import HomePage5 from './homePage5'
 export default {
 	data() {
 		return {
-			mySwiper: null
 		}
 	},
 	components: {
@@ -47,12 +46,12 @@ export default {
 	},
 	watch: {
 		pageNum (val) {
-			this.mySwiper.slideTo(val - 1, 1000, false)
+			window.mySwiper.slideTo(val - 1, 1000, false)
 		}
 	},
 	mounted() {
 		const that = this
-		this.mySwiper = new Swiper('.swiper-container', {
+		window.mySwiper = new Swiper('.swiper-container', {
 			direction : 'vertical',
 			onSlideChangeStart: function(swiper){
 				that.$store.commit("pageChange", swiper.activeIndex + 1)

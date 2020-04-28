@@ -66,6 +66,11 @@ export default {
     padding: 5vh 5vw;
     position: relative;
     .box {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
         .left {
             float: left;
             width: 35%;

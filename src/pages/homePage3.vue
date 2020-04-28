@@ -4,7 +4,7 @@
         <menus class="menus"/>
         <h3>工作经历</h3>
         <div class="box">
-            <div class="swiper-experience">
+            <div class="swiper-experience" @mouseenter="swiperEnter" @mouseleave="swiperLeave">
                 <div class="swiper-wrapper">
                     <template v-for="(item, index) in dataList">
                         <div class="swiper-slide"
@@ -105,7 +105,6 @@ export default {
         menus
     },
     mounted() {
-		const that = this
 		this.mySwiper = new Swiper('.swiper-experience', {
 			effect : 'coverflow',
             slidesPerView: 3,
@@ -128,6 +127,12 @@ export default {
         },
         leave() {
             this.activeIndex = -1
+        },
+        swiperEnter() {
+            window.mySwiper.lockSwipes()
+        },
+        swiperLeave() {
+            window.mySwiper.unlockSwipes()
         }
     }
 }
@@ -161,9 +166,12 @@ export default {
     }
     .box {
         width: 70vw;
-        margin: 0 auto;
-        padding-top: 100px;
+        padding-top: 40px;
         overflow: hidden;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
         .swiper-experience {
             width: 100%;
             .swiper-button-prev {

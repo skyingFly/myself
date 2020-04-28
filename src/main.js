@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+window.mySwiper = null
 
 /* eslint-disable no-new */
 new Vue({
