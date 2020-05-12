@@ -9,7 +9,7 @@
                     <template v-for="(item, index) in dataList">
                         <div class="swiper-slide"
                             :key="index"
-                            :style="{backgroundImage: 'url('+item.imageUrl+')'}"
+                            :style="{backgroundImage: 'url(' + item.url + ')'}"
                             >
                             <div
                                 :class="['contain', {'active': activeIndex == index}]"
@@ -105,6 +105,11 @@ export default {
         menus
     },
     mounted() {
+        this.http('get', `${window.domain}/works`, {}).then(data => {
+            this.dataList = data.dataList
+        }).catch(e => {
+            console.log(e)
+        })
 		this.mySwiper = new Swiper('.swiper-experience', {
 			effect : 'coverflow',
             slidesPerView: 3,

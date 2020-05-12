@@ -13,34 +13,20 @@
 export default {
     data() {
         return {
-            listData: [
-                {
-                    id: 1,
-                    name: '首页'
-                },
-                {
-                    id: 2,
-                    name: '个人信息'
-                },
-                {
-                    id: 3,
-                    name: '工作经历'
-                },
-                {
-                    id: 4,
-                    name: '作品展示'
-                },
-                {
-                    id: 5,
-                    name: '联系方式'
-                }
-            ]
+            listData: []
         }
     },
     computed: {
         pageNum () {
             return this.$store.state.pageNum
         }
+    },
+    mounted() {
+        this.http('get', `${window.domain}/lists`, {}).then(data => {
+            this.listData = data.menusList
+		}).catch(e => {
+			console.log(e)
+		})
     },
     methods: {
         pageChange (pageNum) {

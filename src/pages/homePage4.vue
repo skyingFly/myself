@@ -31,40 +31,7 @@ export default {
     data() {
         return {
             mySwiper: null,
-            dataList: [
-                {
-                    title: '紫金普惠微信积分商城',
-                    desc: '页面设计，用html、css3、媒体查询和rem编写响应式页面，用swiper完成轮播图，用jq完成交互操作'
-                },
-                {
-                    title: '紫金所官网修改',
-                    desc: '根据设计稿切图，css样式编写，根据需求用jq进行相关交互及动效编写，最后调试修改相关浏览器兼容性问题'
-                },
-                {
-                    title: '紫金普惠渠道战队',
-                    desc: '根据设计稿切图，编写html，并用less编写样式，jq完成动效及交互操作'
-                },
-                {
-                    title: '业务系统',
-                    desc: '使用vue+axios完成，安卓pad端应用内嵌页面，供业务人员在外录入相关信息以及处理业务使用'
-                },
-                {
-                    title: '迪瑞特官网',
-                    desc: '整体使用html,css3以及jq，使用swiper完成轮播效果，使用animate.css完成网站动效，以及高德地图完成公司地址定位'
-                },
-                {
-                    title: '校园二手书交易网',
-                    desc: '使用Vue+ElementUI+axios+scss完成页面功能以及样式编写，使用Mock.js模拟数据，与后台同步开发'
-                },
-                {
-                    title: '华为商城',
-                    desc: '华为商城appH5部分功能业务实现'
-                },
-                {
-                    title: '华泰内部系统',
-                    desc: '根据需求使用react+antd+axios实现前端页面开发以及业务逻辑实现'
-                }
-            ]
+            dataList: []
         }
     },
     components: {
@@ -72,32 +39,40 @@ export default {
         menus
     },
     mounted() {
-        this.mySwiper = new Swiper('.swiper-project', {
-            direction : 'vertical',
-            autoplayDisableOnInteraction : false,
-            autoplay: 3000,
-            loop : true,
-            slidesPerView: 4,
-            spaceBetween: 1,
-            breakpoints: {
-                1024: {
+        this.http('get', `${window.domain}/projects`, {}).then(data => {
+            this.dataList = data.dataList
+            this.$nextTick(() => {
+                this.mySwiper = new Swiper('.swiper-project', {
+                    direction : 'vertical',
+                    autoplayDisableOnInteraction : false,
+                    autoplay: 3000,
+                    loop : true,
                     slidesPerView: 4,
-                    spaceBetween: 1
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 1
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 1
-                },
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 1
-                }
-            }
-        })
+                    spaceBetween: 1,
+                    breakpoints: {
+                        1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 1
+                        },
+                        768: {
+                            slidesPerView: 3,
+                            spaceBetween: 1
+                        },
+                        640: {
+                            slidesPerView: 2,
+                            spaceBetween: 1
+                        },
+                        320: {
+                            slidesPerView: 1,
+                            spaceBetween: 1
+                        }
+                    }
+                })
+            })
+		}).catch(e => {
+			console.log(e)
+		})
+        
     },
     methods: {
         enter() {

@@ -19,23 +19,23 @@
                 <ul>
                     <li>
                         <i class="iconfont">&#xe66c;</i>&nbsp;
-                        <span>姓名</span>：周志豪
+                        <span>姓名</span>：{{ data.name }}
                     </li>
                     <li>
                         <i class="iconfont">&#xe66c;</i>&nbsp;
-                        <span>性别</span>：男
+                        <span>性别</span>：{{ data.sex }}
                     </li>
                     <li>
                         <i class="iconfont">&#xe66c;</i>&nbsp;
-                        <span>年龄</span>：29
+                        <span>年龄</span>：{{ data.age }}
                     </li>
                     <li>
                         <i class="iconfont">&#xe66c;</i>&nbsp;
-                        <span>毕业院校</span>：三江学院
+                        <span>毕业院校</span>：{{ data.school }}
                     </li>
                     <li>
                         <i class="iconfont">&#xe66c;</i>&nbsp;
-                        <span>学历</span>：本科
+                        <span>学历</span>：{{ data.education }}
                     </li>
                 </ul>
             </div>
@@ -47,9 +47,21 @@
 import logo from '../components/logo'
 import menus from '../components/menus'
 export default {
+    data() {
+        return {
+            data: {}
+        }
+    },
     components: {
         logo,
         menus
+    },
+    mounted() {
+        this.http('get', `${window.domain}/informations`, {}).then(data => {
+            this.data = data.data
+		}).catch(e => {
+			console.log(e)
+		})
     },
 }
 </script>
@@ -66,14 +78,14 @@ export default {
     padding: 5vh 5vw;
     position: relative;
     .box {
-        width: 100%;
+        width: calc(100% - 140px);
         position: absolute;
         top: 50%;
         left: 0;
         transform: translateY(-50%);
         .left {
             float: left;
-            width: 35%;
+            width: 40%;
             position: relative;
             .border {
                 position: absolute;
@@ -118,7 +130,7 @@ export default {
         }
         .right {
             float: right;
-            width: 55%;
+            width: 50%;
             .title {
                 width: 160px;
                 height: 150px;
